@@ -1,0 +1,144 @@
+Trong Java, **interface** có vai trò đặc biệt và khác với **class**, vì nó chủ yếu phục vụ việc định nghĩa các hành vi mà các lớp triển khai (implement) phải thực hiện. Vì vậy, không có constructor, không có phương thức `main()` hay các thành viên tĩnh (static) theo cách thông thường như trong class. Dưới đây là các lý do chi tiết:
+
+### 1. **Interface không có `main()`**:
+   - Phương thức `main(String[] args)` là điểm bắt đầu (entry point) của một chương trình Java, được dùng để thực thi ứng dụng. Tuy nhiên, interface **không phải là thực thể** có thể thực thi được mà chỉ là một bản thiết kế hành vi.
+   - Mục đích chính của interface là định nghĩa **các phương thức mà các lớp phải triển khai**, không phải để cung cấp cơ chế thực thi như `main()`. Do đó, không có lý do gì để một interface có phương thức `main()`.
+
+   **Ví dụ:**
+   - Một interface chỉ chứa các phương thức trừu tượng hoặc phương thức có thể thực thi (từ Java 8) thông qua `default` hoặc `static`. Việc thực thi logic của chương trình được thực hiện ở các lớp triển khai, chứ không phải ở interface.
+
+### 2. **Interface không có constructor**:
+   - **Constructor** trong Java được dùng để khởi tạo các đối tượng. Tuy nhiên, interface **không có đối tượng thực tế** nên không cần constructor. Interface chỉ định nghĩa các phương thức mà các lớp con phải triển khai, không có trạng thái (state) nào để khởi tạo.
+   - Một interface không thể có biến instance (thuộc tính không phải hằng), do đó không cần constructor để khởi tạo giá trị cho các biến này.
+   - Khi một lớp triển khai một interface, **lớp đó phải tự tạo constructor của riêng mình** để khởi tạo các thuộc tính cụ thể, nếu có.
+
+   **Ví dụ:**
+   ```java
+   public interface Vehicle {
+       void start();
+   }
+
+   public class Car implements Vehicle {
+       private String model;
+
+       // Constructor để khởi tạo đối tượng Car
+       public Car(String model) {
+           this.model = model;
+       }
+
+       @Override
+       public void start() {
+           System.out.println(model + " starts");
+       }
+   }
+   ```
+
+   - Ở đây, lớp `Car` có constructor, nhưng interface `Vehicle` thì không, vì interface không cần tạo đối tượng.
+
+### 3. **Static trong Interface**:
+static la phuong thuc tinh - tuc la khong the ghi de, nen khi trien khai inerface thif no khogn the chua static
+   - Trước Java 8, interface **không có các phương thức static** (tĩnh). Điều này là vì phương thức static thuộc về lớp và có thể gọi trực tiếp qua lớp mà không cần đối tượng. Interface không có thể hiện đối tượng thực sự, do đó không cần các phương thức static.
+
+   - Tuy nhiên, từ **Java 8**, Java cho phép khai báo **phương thức static** trong interface. Điều này cho phép interface cung cấp các phương thức tiện ích chung, mà không cần phải triển khai trong các lớp con.
+
+   **Ví dụ về phương thức static trong interface** (từ Java 8 trở đi):
+   ```java
+   public interface MathOperations {
+       static int add(int a, int b) {
+           return a + b;
+       }
+   }
+
+   public class Calculator implements MathOperations {
+       public static void main(String[] args) {
+           // Gọi phương thức static của interface
+           int result = MathOperations.add(5, 3);
+           System.out.println(result);
+       }
+   }
+   ```
+
+### Tóm tắt:
+- **Interface không có `main()`** vì interface không phải là thực thể để thực thi chương trình.
+- **Interface không có constructor** vì nó không quản lý trạng thái hay thuộc tính nào mà cần được khởi tạo.
+- **Static** chỉ được thêm vào interface từ **Java 8** để cung cấp các phương thức tiện ích mà không cần phụ thuộc vào lớp triển khai.
+
+Chính nhờ những điều này mà interface giữ được tính chất **trừu tượng** và **đa kế thừa** (multiple inheritance) trong Java.
+
+
+
+
+Đúng vậy! Bạn hoàn toàn chính xác. **Phương thức tĩnh (static method)** trong Java thuộc về **lớp** hoặc **interface**, và chúng không thể bị ghi đè (override) trong các lớp con hay lớp triển khai. Điều này cũng áp dụng khi phương thức `static` nằm trong một **interface**.
+
+### Tại sao **static method** không thể ghi đè?
+
+Phương thức `static` trong Java được gọi trực tiếp từ lớp hoặc interface, mà không cần thông qua đối tượng. Do đó, phương thức tĩnh không gắn liền với các thể hiện cụ thể của lớp mà gắn liền với lớp hoặc interface nơi nó được định nghĩa.
+
+- Khi bạn khai báo một phương thức là `static`, nó thuộc về lớp/interface và không thể được ghi đè (override) bởi lớp con hay lớp triển khai, vì quá trình ghi đè yêu cầu thay đổi hành vi dựa trên đối tượng cụ thể. Còn phương thức tĩnh thì không làm việc với đối tượng cụ thể, mà thuộc về định danh của lớp.
+
+### Static methods trong interface:
+
+Kể từ **Java 8**, interface có thể chứa phương thức `static`, nhưng những phương thức này **không thể bị ghi đè** trong lớp triển khai. Chúng chỉ có thể được gọi trực tiếp thông qua tên interface, chứ không thông qua đối tượng của lớp triển khai.
+
+### Ví dụ về interface chứa phương thức `static`:
+
+```java
+public interface Animal {
+    static void eat() {
+        System.out.println("Animals can eat.");
+    }
+
+    void sound();  // Phương thức trừu tượng
+}
+
+public class Dog implements Animal {
+    @Override
+    public void sound() {
+        System.out.println("Woof");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog dog = new Dog();
+        dog.sound(); // Gọi phương thức của lớp triển khai
+
+        // Gọi phương thức static của interface, không thể thông qua đối tượng của lớp Dog
+        Animal.eat();
+    }
+}
+```
+
+### Giải thích:
+
+- Ở đây, `Animal` chứa một phương thức tĩnh `eat()`. Khi bạn gọi phương thức `eat()`, bạn phải gọi nó thông qua **tên của interface** (`Animal.eat()`), chứ không thể thông qua đối tượng của lớp `Dog` vì phương thức tĩnh thuộc về interface, không phải đối tượng.
+- Nếu bạn cố gắng ghi đè phương thức `static eat()` trong lớp `Dog`, trình biên dịch sẽ báo lỗi vì phương thức tĩnh không thể bị ghi đè.
+
+### Điều cần lưu ý:
+
+- **Static methods** không thể bị ghi đè, nhưng bạn có thể **định nghĩa lại một phương thức static khác** trong lớp triển khai với cùng tên, nhưng **nó không phải là quá trình ghi đè**. Đây là hành vi **che giấu** phương thức (`method hiding`), không phải ghi đè. Ví dụ:
+
+```java
+public class Dog implements Animal {
+    @Override
+    public void sound() {
+        System.out.println("Woof");
+    }
+
+    // Phương thức static mới trong lớp Dog, nhưng không ghi đè phương thức của interface
+    public static void eat() {
+        System.out.println("Dog eats.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog.eat();    // Gọi phương thức static của lớp Dog
+        Animal.eat(); // Gọi phương thức static của interface Animal
+    }
+}
+```
+
+### Kết luận:
+- Phương thức `static` trong interface không thể bị ghi đè bởi lớp triển khai, và chúng chỉ có thể được gọi thông qua tên interface.
+- Phương thức `static` trong interface có thể được sử dụng để cung cấp các tiện ích chung cho tất cả các lớp triển khai, mà không cần phụ thuộc vào đối tượng của lớp đó.

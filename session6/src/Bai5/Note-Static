@@ -1,0 +1,132 @@
+Đúng rồi! Bạn đã nắm rõ khái niệm về phương thức tĩnh và phương thức không tĩnh trong Java. Dưới đây là một số điểm tóm tắt và giải thích chi tiết hơn về chúng:
+
+### Phương thức tĩnh (Static Method)
+
+1. **Khái niệm**:
+   - Phương thức tĩnh là phương thức thuộc về lớp, không phải thuộc về một đối tượng cụ thể. Điều này có nghĩa là bạn có thể gọi phương thức tĩnh mà không cần phải tạo một đối tượng của lớp đó.
+
+2. **Cách gọi**:
+   - Có thể gọi trực tiếp bằng tên lớp:
+     ```java
+     ClassName.methodName();
+     ```
+
+3. **Không thể truy cập phương thức không tĩnh**:
+   - Trong một phương thức tĩnh (như `main`), bạn không thể gọi trực tiếp các phương thức không tĩnh (non-static) hoặc truy cập các biến không tĩnh, vì phương thức tĩnh không có ngữ cảnh của một đối tượng cụ thể.
+
+### Phương thức không tĩnh (Non-Static Method)
+
+1. **Khái niệm**:
+   - Phương thức không tĩnh là phương thức thuộc về một đối tượng cụ thể. Mỗi đối tượng có thể có trạng thái riêng của mình, và các phương thức không tĩnh có thể truy cập và thay đổi trạng thái này.
+
+2. **Cách gọi**:
+   - Bạn cần tạo một đối tượng của lớp và gọi phương thức thông qua đối tượng đó:
+     ```java
+     ClassName obj = new ClassName();
+     obj.methodName();
+     ```
+
+3. **Có thể truy cập biến và phương thức tĩnh**:
+   - Các phương thức không tĩnh có thể gọi các phương thức tĩnh và truy cập các biến tĩnh mà không cần tạo đối tượng, vì chúng thuộc về lớp.
+
+### Ví dụ minh họa:
+
+Dưới đây là một ví dụ ngắn để minh họa sự khác nhau:
+
+```java
+public class Example {
+    // Phương thức tĩnh
+    public static void staticMethod() {
+        System.out.println("This is a static method.");
+    }
+
+    // Phương thức không tĩnh
+    public void nonStaticMethod() {
+        System.out.println("This is a non-static method.");
+    }
+
+    public static void main(String[] args) {
+        // Gọi phương thức tĩnh
+        staticMethod(); // Hoặc Example.staticMethod();
+
+        // Không thể gọi non-static method trực tiếp
+        // nonStaticMethod(); // Lỗi biên dịch
+
+        // Tạo một đối tượng để gọi non-static method
+        Example example = new Example();
+        example.nonStaticMethod(); // Gọi phương thức không tĩnh qua đối tượng
+    }
+}
+```
+
+### Tóm tắt:
+
+- Hàm `main` là một phương thức tĩnh, do đó nó không có khả năng truy cập trực tiếp các phương thức không tĩnh.
+- Để gọi phương thức không tĩnh từ hàm tĩnh, bạn cần phải tạo một đối tượng của lớp chứa phương thức đó.
+- Phương thức tĩnh có thể được gọi mà không cần tạo đối tượng, và chúng có thể truy cập các biến tĩnh và phương thức tĩnh khác trong cùng lớp.
+
+Nếu bạn có thêm câu hỏi nào hoặc cần làm rõ hơn về bất kỳ điểm nào, hãy cho mình biết nhé!
+
+
+
+
+
+
+
+
+
+
+---------------
+khi thêm static vao thi doi tuong main van goi duoc no ?
+Đúng vậy! Khi bạn thêm từ khóa `static` vào một phương thức, phương thức đó trở thành phương thức tĩnh (static method) và thuộc về lớp thay vì thuộc về một đối tượng cụ thể. Dưới đây là một số giải thích rõ hơn về lý do tại sao một đối tượng vẫn có thể sử dụng phương thức tĩnh:
+
+### Tại sao đối tượng có thể sử dụng phương thức tĩnh?
+
+1. **Thuộc về lớp**:
+   - Phương thức tĩnh thuộc về lớp, không phải một đối tượng. Điều này có nghĩa là nó có thể được gọi thông qua tên lớp hoặc một đối tượng của lớp đó. Khi bạn tạo một đối tượng, nó không làm mất đi bản chất tĩnh của phương thức. Do đó, bạn vẫn có thể gọi phương thức tĩnh thông qua đối tượng.
+
+2. **Không cần đối tượng để gọi**:
+   - Mặc dù bạn có thể gọi phương thức tĩnh thông qua một đối tượng, bạn không cần tạo đối tượng để gọi phương thức đó. Bạn có thể gọi trực tiếp bằng tên lớp, điều này thường là cách mà các lập trình viên khuyên dùng để làm rõ rằng phương thức đó là phương thức tĩnh.
+
+3. **Tính chia sẻ**:
+   - Phương thức tĩnh có thể được gọi từ bất kỳ đâu trong mã của bạn (trong cùng một lớp hoặc từ các lớp khác), miễn là bạn có quyền truy cập. Điều này cho phép các phương thức tĩnh chia sẻ cùng một mã với tất cả các đối tượng mà không cần phải tạo ra một phiên bản riêng cho mỗi đối tượng.
+
+### Ví dụ minh họa
+
+Dưới đây là một ví dụ để minh họa sự khác biệt này:
+
+```java
+public class Example {
+    // Phương thức tĩnh
+    public static void staticMethod() {
+        System.out.println("This is a static method.");
+    }
+
+    // Phương thức không tĩnh
+    public void nonStaticMethod() {
+        System.out.println("This is a non-static method.");
+    }
+
+    public static void main(String[] args) {
+        // Gọi phương thức tĩnh bằng tên lớp
+        Example.staticMethod();
+
+        // Tạo một đối tượng
+        Example example = new Example();
+
+        // Gọi phương thức tĩnh thông qua đối tượng
+        example.staticMethod(); // Điều này vẫn hợp lệ, nhưng không cần thiết
+
+        // Gọi phương thức không tĩnh thông qua đối tượng
+        example.nonStaticMethod();
+    }
+}
+```
+
+### Tóm tắt
+
+- **Phương thức tĩnh** thuộc về lớp và có thể được gọi thông qua cả tên lớp và đối tượng.
+- Việc gọi phương thức tĩnh thông qua một đối tượng không thay đổi bản chất tĩnh của nó, nhưng cách gọi này có thể gây hiểu lầm và không cần thiết.
+- **Phương thức không tĩnh** chỉ có thể được gọi thông qua một đối tượng.
+
+Tóm lại, trong khi bạn có thể gọi phương thức tĩnh từ một đối tượng, cách gọi này không được khuyến khích vì nó có thể gây nhầm lẫn. Tốt nhất là gọi phương thức tĩnh bằng tên lớp để làm rõ rằng phương thức này không phụ thuộc vào bất kỳ trạng thái cụ thể nào của đối tượng. Nếu có thêm câu hỏi nào, bạn cứ thoải mái hỏi nhé

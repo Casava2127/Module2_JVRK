@@ -1,0 +1,29 @@
+Đúng vậy, bạn đã hiểu khá chính xác về cách thức hoạt động của tính đa hình (polymorphism) và việc ánh xạ các phương thức khi sử dụng biến kiểu lớp cha nhưng tham chiếu đối tượng của lớp con.
+
+### Tóm lược:
+1. **Khi bạn sử dụng upcasting (từ lớp con lên lớp cha)**, biến kiểu lớp cha có thể tham chiếu đến đối tượng của lớp con, nhưng:
+   - **Nó chỉ có thể gọi các phương thức được khai báo trong lớp cha**. Những phương thức này có thể đã được lớp con **ghi đè** (override).
+   - Các phương thức chỉ tồn tại trong lớp con (mà không có trong lớp cha), như `getZ()` trong ví dụ của bạn, **không thể được gọi trực tiếp** từ biến kiểu lớp cha. Đó là lý do tại sao bạn không thể gọi `getZ()` từ biến kiểu `Point2D`.
+
+2. **Phương thức được ghi đè (override)**:
+   - Khi một phương thức của lớp cha được ghi đè trong lớp con, biến kiểu lớp cha sẽ gọi phiên bản phương thức đã được ghi đè của lớp con.
+   - Ví dụ: Nếu `Point3D` ghi đè `toString()`, khi bạn gọi `toString()` từ biến kiểu `Point2D` (tham chiếu đến đối tượng `Point3D`), thì **phiên bản của phương thức trong lớp con** (`Point3D`) sẽ được gọi.
+
+### Ví dụ minh họa:
+```java
+Point2D point2D = new Point3D(1, 2, 3); // Upcasting
+System.out.println(point2D.toString()); // Gọi phương thức toString() của lớp Point3D (vì nó đã ghi đè)
+```
+
+### Giải thích chi tiết:
+- **Biến kiểu lớp cha (`Point2D`) chỉ thấy các phương thức thuộc lớp cha**. Vì `getZ()` không tồn tại trong `Point2D`, nên không thể gọi `point2D.getZ()` mặc dù nó tham chiếu đến một đối tượng `Point3D`.
+- Khi gọi `toString()` (đã được lớp `Point3D` ghi đè), chương trình sẽ **định tuyến động** đến phiên bản `toString()` của `Point3D`. Đây là cơ chế đa hình trong Java.
+
+### Tóm lại:
+- Biến kiểu lớp cha có thể **gọi được các phương thức mà lớp con ghi đè** nếu chúng tồn tại trong lớp cha.
+- Tuy nhiên, nó **không thể gọi các phương thức đặc biệt của lớp con** (như `getZ()` trong `Point3D`) nếu chúng không được khai báo trong lớp cha.
+- Nếu muốn truy cập các phương thức độc quyền của lớp con, bạn phải **ép kiểu về lớp con** (downcasting).
+
+### Kết luận:
+- **Biến kiểu lớp cha chỉ tham chiếu đến các phương thức đã có trong lớp cha** (kể cả nếu các phương thức đó đã bị ghi đè trong lớp con).
+- **Biến không thể tham chiếu đến các phương thức mới của lớp con**, trừ khi bạn ép kiểu để truy cập chúng.

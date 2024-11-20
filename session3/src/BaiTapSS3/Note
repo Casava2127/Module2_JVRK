@@ -1,0 +1,133 @@
+Trong Java, lớp `Arrays` cung cấp một tập hợp các phương thức tiện ích để thao tác với mảng. Dưới đây là một số phương thức phổ biến và hữu ích từ lớp `Arrays`:
+
+### 1. **`Arrays.toString()`**
+Phương thức này chuyển đổi mảng thành chuỗi để có thể in ra.
+
+- **Cú pháp**: `Arrays.toString(array)`
+- **Ví dụ**:
+
+```java
+int[] mang = {1, 2, 3, 4, 5};
+System.out.println(Arrays.toString(mang));  // Output: [1, 2, 3, 4, 5]
+```
+
+### 2. **`Arrays.sort()`**
+Sắp xếp mảng theo thứ tự tăng dần.
+
+- **Cú pháp**: `Arrays.sort(array)`
+- **Ví dụ**:
+
+```java
+int[] mang = {5, 3, 1, 4, 2};
+Arrays.sort(mang);
+System.out.println(Arrays.toString(mang));  // Output: [1, 2, 3, 4, 5]
+```
+
+### 3. **`Arrays.binarySearch()`**
+Tìm kiếm nhị phân trong mảng đã được sắp xếp. Phương thức này trả về chỉ số của phần tử nếu tìm thấy, nếu không, trả về một giá trị âm.
+
+- **Cú pháp**: `Arrays.binarySearch(array, key)`
+- **Ví dụ**:
+
+```java
+int[] mang = {1, 2, 3, 4, 5};
+int viTri = Arrays.binarySearch(mang, 3);
+System.out.println(viTri);  // Output: 2
+```
+
+### 4. **`Arrays.equals()`**
+So sánh hai mảng xem chúng có bằng nhau không. Phương thức này trả về `true` nếu cả hai mảng có cùng độ dài và các phần tử tương ứng đều giống nhau.
+
+- **Cú pháp**: `Arrays.equals(array1, array2)`
+- **Ví dụ**:
+
+```java
+int[] mang1 = {1, 2, 3};
+int[] mang2 = {1, 2, 3};
+System.out.println(Arrays.equals(mang1, mang2));  // Output: true
+```
+
+### 5. **`Arrays.fill()`**
+Gán một giá trị cố định cho tất cả các phần tử trong mảng.
+
+- **Cú pháp**: `Arrays.fill(array, value)`
+- **Ví dụ**:
+
+```java
+int[] mang = new int[5];
+Arrays.fill(mang, 10);
+System.out.println(Arrays.toString(mang));  // Output: [10, 10, 10, 10, 10]
+```
+
+### 6. **`Arrays.copyOf()`**
+Sao chép một mảng đến một mảng mới với độ dài xác định.
+
+- **Cú pháp**: `Arrays.copyOf(array, newLength)`
+- **Ví dụ**:
+
+```java
+int[] mangGoc = {1, 2, 3};
+int[] mangMoi = Arrays.copyOf(mangGoc, 5);
+System.out.println(Arrays.toString(mangMoi));  // Output: [1, 2, 3, 0, 0]
+```
+
+### 7. **`Arrays.copyOfRange()`**
+Sao chép một đoạn con của mảng (từ chỉ số bắt đầu đến chỉ số kết thúc - 1).
+
+- **Cú pháp**: `Arrays.copyOfRange(array, from, to)`
+- **Ví dụ**:
+
+```java
+int[] mangGoc = {1, 2, 3, 4, 5};
+int[] mangCon = Arrays.copyOfRange(mangGoc, 1, 4);
+System.out.println(Arrays.toString(mangCon));  // Output: [2, 3, 4]
+```
+
+### 8. **`Arrays.deepEquals()`**
+So sánh các mảng lồng nhau (mảng hai chiều hoặc đa chiều). Phương thức này rất hữu ích để so sánh các mảng phức tạp.
+
+- **Cú pháp**: `Arrays.deepEquals(array1, array2)`
+- **Ví dụ**:
+
+```java
+int[][] mang1 = {{1, 2}, {3, 4}};
+int[][] mang2 = {{1, 2}, {3, 4}};
+System.out.println(Arrays.deepEquals(mang1, mang2));  // Output: true
+```
+
+### 9. **`Arrays.deepToString()`**
+Chuyển đổi mảng đa chiều thành chuỗi, hiển thị các phần tử của mảng trong một cấu trúc dễ đọc.
+
+- **Cú pháp**: `Arrays.deepToString(array)`
+- **Ví dụ**:
+
+```java
+int[][] mang = {{1, 2}, {3, 4}};
+System.out.println(Arrays.deepToString(mang));  // Output: [[1, 2], [3, 4]]
+```
+
+### 10. **`Arrays.hashCode()`**
+Tạo ra một giá trị hash dựa trên nội dung của mảng. Điều này hữu ích cho các hoạt động như sử dụng mảng làm khóa trong một HashMap.
+
+- **Cú pháp**: `Arrays.hashCode(array)`
+- **Ví dụ**:
+
+```java
+int[] mang = {1, 2, 3};
+int hashCode = Arrays.hashCode(mang);
+System.out.println(hashCode);  // Output: giá trị hash
+```
+
+### 11. **`Arrays.parallelSort()`**
+Sắp xếp mảng bằng cách sử dụng thuật toán sắp xếp song song, có thể nhanh hơn `Arrays.sort()` đối với mảng lớn.
+
+- **Cú pháp**: `Arrays.parallelSort(array)`
+- **Ví dụ**:
+
+```java
+int[] mang = {5, 3, 1, 4, 2};
+Arrays.parallelSort(mang);
+System.out.println(Arrays.toString(mang));  // Output: [1, 2, 3, 4, 5]
+```
+
+Những phương thức này rất hữu ích khi làm việc với mảng trong Java, giúp bạn thao tác với mảng một cách linh hoạt và hiệu quả hơn.
